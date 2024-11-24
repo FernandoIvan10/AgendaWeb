@@ -1,19 +1,31 @@
-import { createContext, useState } from 'react';
+import { createContext, useState, useEffect } from 'react';
+import axios from 'axios';
 
 // Context is created
 export const AppContext = createContext()
 
 // Context provider is created
 export const Provider = ({ children }) => {
-    //Status hook that stores a contact
+    //State hook to store a single contact
     const [contact, setContact] = useState({
         name: '',
         phone: '',
         description: '',
         isEditing: false
     })
-    //Status hook that stores a contact list
+    //State hook to store the contact list
     const [contacts, setContacts] = useState([])
+
+    // Fetch contacts from the backend when the component mounts
+    useEffect(() => {
+        axios.get("http://localhost:3000/contacts")
+            .then((response) => {
+                setContacts(response.data); // Populate contacts with API response
+            })
+            .catch((error) => {
+                console.error("Error fetching contacts:", error);
+            });
+    }, []);
 
     return (
         // Hooks are shared with children

@@ -3,6 +3,7 @@ import { Input } from "../components/basics/Basic";
 import { RiContactsBook3Fill } from "react-icons/ri";
 import { AppContext } from "../provider";
 import { Link } from "react-router-dom";
+import axios from "axios";
 import './../assets/styles/screens/NewContact.css';
 
 // User can add new contact
@@ -17,10 +18,13 @@ export default function NewContactPage(){
             return
         }
         // New contact is added to contacts
-        setContacts([...contacts, {...contact,isEditing:false}]);
-        alert('Contact saved successfully')
-        // Form is cleared
-        setContact({name:'',phone:'',description:''})
+        axios.post("http://localhost:3000/contacts", contact)
+        .then(response => {
+            setContacts([...contacts, response.data]); // Update state with the new contact
+            setContact({ name: "", phone: "", description: "" }); // Clear the form
+            alert("Contact saved successfully");
+        })
+        .catch(err => console.error(err));
     }
 
     return (

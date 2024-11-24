@@ -2,83 +2,79 @@ import { useContext, useState } from "react";
 import { Input } from "../components/basics/Basic";
 import { Contact, EditContact } from "../components/contacts/Contact";
 import { AppContext } from "../provider";
-import { IoMdArrowRoundBack, IoMdPersonAdd } from "react-icons/io";
+import { IoMdPersonAdd } from "react-icons/io";
 import { Link } from "react-router-dom";
+import axios from "axios";
 import './../assets/styles/screens/ContactList.css'
 
 // User can see his contact list
 export default function ContactListPage(){
     // Parent context is obtained
     const { contacts, setContacts } = useContext(AppContext);
-    // Function that deletes a contact
-    const deleteContact=(id)=>{
-        const contactsFiltered = contacts.filter((_,index) => index!==id)
-        setContacts(contactsFiltered)
-    }
     // Variable containing value of input search
     const [search, setSearch] = useState('')
 
-    // Method that change isEditing value in a contact
-    const editContact=(id)=>{
-        // Saving changes to a new list
-        const contactsAux = contacts.map((contact, index)=>{
-            // Changing isEditing value in the contact
-            if(index===id){
-                return{...contact, isEditing: true}
-            }
-            return contact
+    // Method that deletes a contact
+    const deleteContact=(id)=>{
+        axios.delete(`http://localhost:3000/contacts/${id}`)
+        .then(() => {
+            const filteredContacts = contacts.filter((_, index) => index !== id);
+            setContacts(filteredContacts);
         })
-        // Set new list to Contacts
-        setContacts(contactsAux)
+        .catch(err => console.error(err));
+    }
+
+    // Method that change isEditing value in a contact
+    const editContact = (id) => {
+        const updatedContacts = contacts.map((contact, index) => 
+            index === id ? { ...contact, isEditing: true } : contact
+        );
+        setContacts(updatedContacts);
     }
     
     // Method that save changes in the contact
     const saveChanges = (index, updatedContact) => {
-        const updatedContacts = contacts.map((contact, id) => 
-            id === index ? { ...contact, ...updatedContact, isEditing: false } : contact
-        );
-        setContacts(updatedContacts);
+        axios.put(`http://localhost:3000/contacts/${contacts[index].id}`, updatedContact)
+            .then(response => {
+                const updatedContacts = contacts.map((contact, id) =>
+                    id === index ? { ...response.data } : contact
+                );
+                setContacts(updatedContacts);
+            })
+            .catch(err => {
+                console.error("Error saving changes:", err);
+                alert("Failed to save changes");
+            });
     }
 
     // method that generate a contact list
     const generateList = () => {
         return contacts
             .filter(contact => {
-                //If the search is empty, it returns the full list.
-                if (search === '') {
-                    return true
-                }
-                //Return filtered list
-                return contact.name.toLowerCase().startsWith(search.toLowerCase());
+                return search === '' || contact.name.toLowerCase().startsWith(search.toLowerCase());
             })
-            // Display contact list
             .map((contact, id) => {
-                // Display the contact depending on the "isEditing" value
-                if(contact.isEditing===false){
-                    return (
-                        <Contact 
-                            className="div-target"
-                            key={id}
-                            name={contact.name} 
-                            phone={contact.phone} 
-                            description={contact.description}
-                            deleteContact={() => deleteContact(id)}
-                            editContact={()=>editContact(id)}
-                        />
-                    )
-                }else{
-                    return(
-                        <EditContact
-                            className="div-target"
-                            key={id}
-                            name={contact.name} 
-                            phone={contact.phone} 
-                            description={contact.description}
-                            saveChanges={(updatedContact) => saveChanges(id,updatedContact)}/>
-                    )
-                }
-                
-            })
+                return contact.isEditing ? (
+                    <EditContact
+                        className="div-target"
+                        key={id}
+                        name={contact.name}
+                        phone={contact.phone}
+                        description={contact.description}
+                        saveChanges={(updatedContact) => saveChanges(id, updatedContact)}
+                    />
+                ) : (
+                    <Contact
+                        className="div-target"
+                        key={id}
+                        name={contact.name}
+                        phone={contact.phone}
+                        description={contact.description}
+                        deleteContact={() => deleteContact(id)}
+                        editContact={() => editContact(id)}
+                    />
+                );
+            });
     }
 
     return(
