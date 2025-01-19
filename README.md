@@ -1,70 +1,52 @@
-# Getting Started with Create React App
+# PhoneBookAppWithPostgreSQL
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Descripción
 
-## Available Scripts
+Aplicación web sencilla de gestión de contactos, donde puedes agregar, editar, eliminar y buscar contactos. La app se conecta a una base de datos PostgreSQL local para almacenar la información de los contactos.
 
-In the project directory, you can run:
+## Tecnologías
 
-### `npm start`
+- **Frontend**: React
+- **Backend**: Node.js, Express.js
+- **Base de Datos**: PostgreSQL
+- **Entorno**: `.env` para configuración de base de datos
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## Instalación
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+1. Clona el repositorio:
 
-### `npm test`
+   ```bash
+   git clone https://github.com/FernandoIvan10/AgendaWeb.git
+2. Instala las dependencias:
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+   ```bash
+   cd AgendaWeb
+   npm install
+3. Modifica el archivo .env con la configuración de tu base de datos:
 
-### `npm run build`
+   ```bash
+    DB_HOST=<tu_host>
+    DB_PORT=<puerto_de_tu_base_de_datos>
+    DB_USER=<usuario_de_tu_base_de_datos>
+    DB_PASSWORD=<contraseña_de_tu_base_de_datos>
+    DB_NAME=<nombre_de_tu_base_de_datos>
+4. Genera el build del frontend ejecutando el siguiente comando:  
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+   ```bash
+   npm run build
+5. Ejecuta el backend:
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+   ```bash
+   npm start
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## Funcionalidades
+- **Formulario de contacto**: Permite agregar nuevos contactos.
+- **Lista de contactos**: Muestra todos los contactos registrados con opciones para editar o eliminar.
+- **Búsqueda de contactos**: Encuentra contactos rápidamente por nombre.
 
-### `npm run eject`
+## Consideraciones
+- El archivo `.env` contiene datos de conexión a la base de datos PostgreSQL. No se incluye información sensible, ya que se utiliza una base de datos local.
+- Asegúrate de tener PostgreSQL instalado y configurado en tu máquina local.
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+## Licencia
+Este proyecto está bajo la Licencia MIT. Ver el archivo [LICENSE](./LICENSE) para más detalles.
