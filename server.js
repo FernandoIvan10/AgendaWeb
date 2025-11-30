@@ -2,11 +2,16 @@
 const express = require('express');
 const path = require('path');
 const {Pool} = require('pg');
+const cors = require('cors');
 require('dotenv').config();
 
 // variables
 const app = express();
-const port = 3000;
+const port = 4000;
+
+app.use(cors({
+  origin: 'http://localhost:3000'
+}));
 
 // Middleware to parse JSON bodies
 app.use(express.json());
