@@ -18,7 +18,7 @@ export default function ContactListPage(){
     const deleteContact=(id)=>{
         axios.delete(`http://localhost:4000/contacts/${id}`)
         .then(() => {
-            const filteredContacts = contacts.filter((_, index) => index !== id);
+            const filteredContacts = contacts.filter(c => c.id !== id);
             setContacts(filteredContacts);
         })
         .catch(err => console.error(err));
@@ -27,20 +27,20 @@ export default function ContactListPage(){
     // Method that change isEditing value in a contact
     const editContact = (id) => {
         const updatedContacts = contacts.map((contact, index) => 
-            index === id ? { ...contact, isEditing: true } : contact
+            contact.id === id ? { ...contact, isEditing: true } : contact
         );
         setContacts(updatedContacts);
     }
     
     // Method that save changes in the contact
-    const saveChanges = (index, updatedContact) => {
-        axios.put(`http://localhost:4000/contacts/${contacts[index].id}`, updatedContact)
+    const saveChanges = (id, updatedContact) => {
+        axios.put(`http://localhost:4000/contacts/${id}`, updatedContact)
             .then(response => {
-                const updatedContacts = contacts.map((contact, id) =>
-                    id === index ? { ...response.data } : contact
+                const updatedContacts = contacts.map(contact =>
+                    contact.id === id ? { ...response.data } : contact
                 );
-                setContacts(updatedContacts);
-            })
+                    setContacts(updatedContacts);
+                })
             .catch(err => {
                 console.error("Error saving changes:", err);
                 alert("Failed to save changes");
@@ -57,21 +57,21 @@ export default function ContactListPage(){
                 return contact.isEditing ? (
                     <EditContact
                         className="div-target"
-                        key={id}
+                        key={contact.id}
                         name={contact.name}
                         phone={contact.phone}
                         description={contact.description}
-                        saveChanges={(updatedContact) => saveChanges(id, updatedContact)}
+                        saveChanges={(updatedContact) => saveChanges(contact.id, updatedContact)}
                     />
                 ) : (
                     <Contact
                         className="div-target"
-                        key={id}
+                        key={contact.id}
                         name={contact.name}
                         phone={contact.phone}
                         description={contact.description}
-                        deleteContact={() => deleteContact(id)}
-                        editContact={() => editContact(id)}
+                        deleteContact={() => deleteContact(contact.id)}
+                        editContact={() => editContact(contact.id)}
                     />
                 );
             });
