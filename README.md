@@ -34,7 +34,11 @@ Aplicación web sencilla de gestión de contactos, donde puedes agregar, editar,
 
    ```bash
    npm run build
-5. Ejecuta el backend:
+5. En una terminal ejecuta el servidor backend con el siguiente comando:
+
+   ```bash
+   node server.js
+6. En otra terminal ejecuta el frontend con el siguiente comando:
 
    ```bash
    npm start
