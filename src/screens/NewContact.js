@@ -18,7 +18,7 @@ export default function NewContactPage(){
             return
         }
         // New contact is added to contacts
-        axios.post("http://localhost:4000/contacts", contact)
+        axios.post(`http://localhost:${process.env.BACKEND_PORT}/contacts`, contact)
         .then(response => {
             setContacts([...contacts, response.data]); // Update state with the new contact
             setContact({ name: "", phone: "", description: "" }); // Clear the form

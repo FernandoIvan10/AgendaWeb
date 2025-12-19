@@ -16,7 +16,7 @@ export default function ContactListPage(){
 
     // Method that deletes a contact
     const deleteContact=(id)=>{
-        axios.delete(`http://localhost:4000/contacts/${id}`)
+        axios.delete(`http://localhost:${process.env.BACKEND_PORT}/contacts/${id}`)
         .then(() => {
             const filteredContacts = contacts.filter(c => c.id !== id);
             setContacts(filteredContacts);
@@ -34,7 +34,7 @@ export default function ContactListPage(){
     
     // Method that save changes in the contact
     const saveChanges = (id, updatedContact) => {
-        axios.put(`http://localhost:4000/contacts/${id}`, updatedContact)
+        axios.put(`http://localhost:${process.env.BACKEND_PORT}/contacts/${id}`, updatedContact)
             .then(response => {
                 const updatedContacts = contacts.map(contact =>
                     contact.id === id ? { ...response.data } : contact

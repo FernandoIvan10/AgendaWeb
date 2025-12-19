@@ -30,6 +30,8 @@ Aplicación web sencilla de gestión de contactos, donde puedes agregar, editar,
     DB_USER=<usuario_de_tu_base_de_datos>
     DB_PASSWORD=<contraseña_de_tu_base_de_datos>
     DB_NAME=<nombre_de_tu_base_de_datos>
+    FRONTEND_PORT=<puerto_de_tu_servidor_frontend>
+    BACKEND_PORT=<puerto_de_tu_servidor_backend>
 4. Genera el build del frontend ejecutando el siguiente comando:  
 
    ```bash

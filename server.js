@@ -7,10 +7,9 @@ require('dotenv').config();
 
 // variables
 const app = express();
-const port = 4000;
 
 app.use(cors({
-  origin: 'http://localhost:3000'
+  origin: `http://localhost:${process.env.FRONTEND_PORT}`
 }));
 
 // Middleware to parse JSON bodies
@@ -94,6 +93,6 @@ app.get('*', (req, res) => {
 });
 
 //start server
-app.listen(port, () => {
-  console.log(`Server running on port ${port}`);
+app.listen(process.env.BACKEND_PORT, () => {
+  console.log(`Server running on port ${process.env.BACKEND_PORT}`);
 });
