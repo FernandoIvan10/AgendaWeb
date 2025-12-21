@@ -2,15 +2,10 @@
 const express = require('express');
 const path = require('path');
 const {Pool} = require('pg');
-const cors = require('cors');
 require('dotenv').config();
 
 // variables
 const app = express();
-
-app.use(cors({
-  origin: `http://localhost:${process.env.FRONTEND_PORT}`
-}));
 
 // Middleware to parse JSON bodies
 app.use(express.json());
@@ -26,7 +21,7 @@ const pool = new Pool({
 
 // API Routes
 // Get all contacts
-app.get('/contacts', async (req, res) => {
+app.get('/api/contacts', async (req, res) => {
   try {
     const result = await pool.query('SELECT * FROM contacts');
     res.json(result.rows);
@@ -37,7 +32,7 @@ app.get('/contacts', async (req, res) => {
 });
 
 // Add a new contact
-app.post('/contacts', async (req, res) => {
+app.post('/api/contacts', async (req, res) => {
   const { name, phone, description } = req.body;
   try {
     const result = await pool.query(
@@ -52,7 +47,7 @@ app.post('/contacts', async (req, res) => {
 });
 
 // Update a contact
-app.put('/contacts/:id', async (req, res) => {
+app.put('/api/contacts/:id', async (req, res) => {
   const id = parseInt(req.params.id, 10);
   const { name, phone, description } = req.body;
   try {
@@ -71,7 +66,7 @@ app.put('/contacts/:id', async (req, res) => {
 });
 
 // Delete a contact
-app.delete('/contacts/:id', async (req, res) => {
+app.delete('/api/contacts/:id', async (req, res) => {
   const id = parseInt(req.params.id, 10);
   try {
     const result = await pool.query('DELETE FROM contacts WHERE id = $1', [id]);
@@ -85,11 +80,13 @@ app.delete('/contacts/:id', async (req, res) => {
   }
 });
 
-// Serve static files from the React frontend
-app.use(express.static(path.join(__dirname, 'build')));
+// Serve static files from the React frontend (built by the client app)
+const clientBuildPath = path.join(__dirname, '..', 'client', 'build');
+app.use(express.static(clientBuildPath));
 // Serve the React app for all other routes
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, 'build', 'index.html'));
+// Fallback middleware: no route pattern parsing (avoids path-to-regexp errors)
+app.use((req, res) => {
+  res.sendFile(path.join(clientBuildPath, 'index.html'));
 });
 
 //start server

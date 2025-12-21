@@ -17,12 +17,18 @@ Aplicación web sencilla de gestión de contactos, donde puedes agregar, editar,
 
    ```bash
    git clone https://github.com/FernandoIvan10/AgendaWeb.git
-2. Instala las dependencias:
+   cd AgendaWeb
+2. Instala las dependencias del frontend:
 
    ```bash
-   cd AgendaWeb
+   cd client
    npm install
-3. Modifica el archivo .env con la configuración de tu base de datos:
+3. Instala las dependencias del backend:
+
+   ```bash
+   cd ../server
+   npm install
+4. Modifica el archivo .env, ubicado en la carpeta server, con la configuración de tu base de datos y el puerto de tu servidor backend:
 
    ```bash
     DB_HOST=<tu_host>
@@ -30,17 +36,17 @@ Aplicación web sencilla de gestión de contactos, donde puedes agregar, editar,
     DB_USER=<usuario_de_tu_base_de_datos>
     DB_PASSWORD=<contraseña_de_tu_base_de_datos>
     DB_NAME=<nombre_de_tu_base_de_datos>
-    FRONTEND_PORT=<puerto_de_tu_servidor_frontend>
     BACKEND_PORT=<puerto_de_tu_servidor_backend>
 4. Genera el build del frontend ejecutando el siguiente comando:  
 
    ```bash
+   cd ../client
    npm run build
-5. En una terminal ejecuta el servidor backend con el siguiente comando:
+5. En una terminal ejecuta el servidor backend con el siguiente comando dentro de la carpeta server:
 
    ```bash
    node server.js
-6. En otra terminal ejecuta el frontend con el siguiente comando:
+6. En otra terminal ejecuta el frontend con el siguiente comando dentro de la carpeta client:
 
    ```bash
    npm start

@@ -5,7 +5,7 @@ import { AppContext } from "../provider";
 import { IoMdPersonAdd } from "react-icons/io";
 import { Link } from "react-router-dom";
 import axios from "axios";
-import './../assets/styles/screens/ContactList.css'
+import '../assets/styles/screens/ContactList.css'
 
 // User can see his contact list
 export default function ContactListPage(){
@@ -16,7 +16,7 @@ export default function ContactListPage(){
 
     // Method that deletes a contact
     const deleteContact=(id)=>{
-        axios.delete(`http://localhost:${process.env.BACKEND_PORT}/contacts/${id}`)
+        axios.delete(`/api/contacts/${id}`)
         .then(() => {
             const filteredContacts = contacts.filter(c => c.id !== id);
             setContacts(filteredContacts);
@@ -34,7 +34,7 @@ export default function ContactListPage(){
     
     // Method that save changes in the contact
     const saveChanges = (id, updatedContact) => {
-        axios.put(`http://localhost:${process.env.BACKEND_PORT}/contacts/${id}`, updatedContact)
+        axios.put(`/api/contacts/${id}`, updatedContact)
             .then(response => {
                 const updatedContacts = contacts.map(contact =>
                     contact.id === id ? { ...response.data } : contact
@@ -49,8 +49,8 @@ export default function ContactListPage(){
 
     // method that generate a contact list
     const generateList = () => {
-        return contacts
-            .filter(contact => {
+        return contacts.
+            filter(contact => {
                 return search === '' || contact.name.toLowerCase().startsWith(search.toLowerCase());
             })
             .map((contact, id) => {

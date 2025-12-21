@@ -18,7 +18,7 @@ export const Provider = ({ children }) => {
 
     // Fetch contacts from the backend when the component mounts
     useEffect(() => {
-        axios.get(`http://localhost:${process.env.BACKEND_PORT}/contacts`)
+        axios.get('/api/contacts')
             .then((response) => {
                 setContacts(response.data); // Populate contacts with API response
             })
