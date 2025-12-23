@@ -1,10 +1,10 @@
-const pool = require('../db');
+const contactModel = require('../models/contact.model');
 
 // Get all contacts
 const getContacts = async (req, res) => {
   try {
-    const result = await pool.query('SELECT * FROM contacts');
-    res.json(result.rows);
+    const rows = await contactModel.getAll();
+    res.json(rows);
   } catch (error) {
     console.error('Error fetching contacts:', error);
     res.status(500).send('Server Error');
@@ -15,11 +15,8 @@ const getContacts = async (req, res) => {
 const addContact = async (req, res) => {
   const { name, phone, description } = req.body;
   try {
-    const result = await pool.query(
-      'INSERT INTO contacts (name, phone, description) VALUES ($1, $2, $3) RETURNING *',
-      [name, phone, description]
-    );
-    res.status(201).json(result.rows[0]);
+    const contact = await contactModel.create({ name, phone, description });
+    res.status(201).json(contact);
   } catch (error) {
     console.error('Error adding contact:', error);
     res.status(500).send('Server Error');
@@ -31,10 +28,7 @@ const updateContact = async (req, res) => {
   const id = parseInt(req.params.id, 10);
   const { name, phone, description } = req.body;
   try {
-    const result = await pool.query(
-      'UPDATE contacts SET name = $1, phone = $2, description = $3 WHERE id = $4 RETURNING *',
-      [name, phone, description, id]
-    );
+    const result = await contactModel.updateById(id, { name, phone, description });
     if (result.rowCount === 0) {
       return res.status(404).json({ error: 'Contact not found' });
     }
@@ -49,7 +43,7 @@ const updateContact = async (req, res) => {
 const deleteContact = async (req, res) => {
   const id = parseInt(req.params.id, 10);
   try {
-    const result = await pool.query('DELETE FROM contacts WHERE id = $1', [id]);
+    const result = await contactModel.deleteById(id);
     if (result.rowCount === 0) {
       return res.status(404).json({ error: 'Contact not found' });
     }

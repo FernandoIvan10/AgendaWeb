@@ -3,7 +3,6 @@ require('dotenv').config();
 const express = require('express');
 const path = require('path');
 const contactsRoutes = require('./routes/contacts.routes');
-const pool = require('./db');
 
 // variables
 const app = express();
