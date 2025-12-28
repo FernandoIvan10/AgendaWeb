@@ -1,32 +1,58 @@
 const contactModel = require('../models/contact.model');
+const { areStrings } = require('../utils/validators');
 
-// Get all contacts
-const getContacts = async (req, res) => {
+const getContacts = async (req, res) => {// Get all contacts
   try {
     const rows = await contactModel.getAll();
     res.json(rows);
   } catch (error) {
     console.error('Error fetching contacts:', error);
-    res.status(500).send('Server Error');
+    res.status(500).json({ error: 'Server Error' });
   }
 }
 
-// Add a new contact
-const addContact = async (req, res) => {
+const addContact = async (req, res) => {// Add a new contact
   const { name, phone, description } = req.body;
+  // Name and phone are required
+  if(!name || !phone)
+    return res.status(400).json({ error: 'Missing fields' });
+  // Name, phone, and description must be strings
+  if(
+    !areStrings(name, phone) 
+    || (description !== undefined && !areStrings(description))
+  ) {
+    return res.status(400).json({ error: 'Invalid field types' });
+  }
+
   try {
     const contact = await contactModel.create({ name, phone, description });
     res.status(201).json(contact);
   } catch (error) {
     console.error('Error adding contact:', error);
-    res.status(500).send('Server Error');
+    res.status(500).json({ error: 'Server Error' });
   }
 }
 
-// Update a contact
-const updateContact = async (req, res) => {
-  const id = parseInt(req.params.id, 10);
+const updateContact = async (req, res) => {// Update a contact
+  const id = Number(req.params.id);
   const { name, phone, description } = req.body;
+
+  // ID must be a valid integer
+  if (!Number.isInteger(id)) {
+    return res.status(400).json({ error: 'Invalid id' });
+  }
+
+  // Name, and phone are required
+  if(!name || !phone)
+    return res.status(400).json({ error: 'Missing fields' });
+  // Name, phone, and description must be strings
+  if(
+    !areStrings(name, phone)
+    || (description && !areStrings(description))
+  ) {
+    return res.status(400).json({ error: 'Invalid field types' });
+  }
+
   try {
     const result = await contactModel.updateById(id, { name, phone, description });
     if (result.rowCount === 0) {
@@ -39,9 +65,14 @@ const updateContact = async (req, res) => {
   }
 }
 
-// Delete a contact
-const deleteContact = async (req, res) => {
-  const id = parseInt(req.params.id, 10);
+const deleteContact = async (req, res) => { // Delete a contact
+  const id = Number(req.params.id);
+  
+  // ID must be a valid integer
+  if (!Number.isInteger(id)) {
+    return res.status(400).json({ error: 'Invalid id' });
+  }
+  
   try {
     const result = await contactModel.deleteById(id);
     if (result.rowCount === 0) {
