@@ -9,7 +9,7 @@ export default function AppRoutes(){
             <Routes>
                 <Route path='/new-contact' element={<NewContactPage/>}/>
                 <Route path='/contact-list' element={<ContactListPage/>}/>
-                <Route path="*" element={<Navigate to="/new-contact" />} />
+                <Route path="*" element={<Navigate to="/new-contact" replace/>} />
             </Routes>
         </Router>
     )
