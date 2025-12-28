@@ -1,7 +1,6 @@
-import { useContext, useState } from "react";
+import { useState, useEffect } from "react";
 import { Input } from "../components/basics/Basic";
 import { Contact, EditContact } from "../components/contacts/Contact";
-import { AppContext } from "../provider";
 import { IoMdPersonAdd } from "react-icons/io";
 import { Link } from "react-router-dom";
 import axios from "axios";
@@ -9,10 +8,15 @@ import '../assets/styles/screens/ContactList.css'
 
 // User can see his contact list
 export default function ContactListPage(){
-    // Parent context is obtained
-    const { contacts, setContacts } = useContext(AppContext);
+    const [contacts, setContacts] = useState([])
     // Variable containing value of input search
     const [search, setSearch] = useState('')
+
+    useEffect(() => {
+        axios.get('/api/contacts')
+            .then((response) => setContacts(response.data))
+            .catch((error) => console.error('Error fetching contacts:', error));
+    }, []);
 
     // Method that deletes a contact
     const deleteContact=(id)=>{

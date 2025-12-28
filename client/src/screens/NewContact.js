@@ -1,15 +1,15 @@
-import { useContext} from "react";
+import { useState } from "react";
 import { Input } from "../components/basics/Basic";
 import { RiContactsBook3Fill } from "react-icons/ri";
-import { AppContext } from "../provider";
 import { Link } from "react-router-dom";
 import axios from "axios";
+import { useNavigate } from 'react-router-dom';
 import './../assets/styles/screens/NewContact.css';
 
 // User can add new contact
 export default function NewContactPage(){
-    // Parent context is obtained
-    const { contact, setContact, contacts, setContacts } = useContext(AppContext);
+    const navigate = useNavigate();
+    const [contact, setContact] = useState({ name: '', phone: '', description: '' });
     // method that saves a contact
     const saveHandler = ()=>{
         // All fields must be filled in
@@ -20,9 +20,9 @@ export default function NewContactPage(){
         // New contact is added to contacts
         axios.post('/api/contacts', contact)
         .then(response => {
-            setContacts([...contacts, response.data]); // Update state with the new contact
             setContact({ name: "", phone: "", description: "" }); // Clear the form
             alert("Contact saved successfully");
+            navigate('/contact-list');
         })
         .catch(err => console.error(err));
     }
