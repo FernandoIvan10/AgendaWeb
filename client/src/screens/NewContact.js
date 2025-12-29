@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Input } from "../components/basics/Basic";
+import { Input } from "../components/basics/Input";
 import { RiContactsBook3Fill } from "react-icons/ri";
 import { Link } from "react-router-dom";
 import axios from "axios";
@@ -35,10 +35,8 @@ export default function NewContactPage(){
                     <RiContactsBook3Fill className="icon-list" />
                 </Link>
             </div>
-            <div className="div-form">
-                <Input className="div-input"
-                    classNameLabel="input-label"
-                    classNameInput="input"
+            <div className="contact-form_div">
+                <Input divClassName="contact-form_field"
                     label="Name: " 
                     id="contact-name" 
                     type="text"
@@ -46,9 +44,7 @@ export default function NewContactPage(){
                     value={contact.name}
                     onChange={(e)=>setContact({...contact, name: e.target.value})}
                     />
-                <Input className="div-input"
-                    classNameLabel="input-label"
-                    classNameInput="input"
+                <Input divClassName="contact-form_field"
                     label="Phone: "
                     id="contact-phone" 
                     type="text"
@@ -56,9 +52,7 @@ export default function NewContactPage(){
                     value={contact.phone}
                     onChange={(e)=>setContact({...contact, phone: e.target.value})}
                 />
-                <Input className="div-input"
-                    classNameLabel="input-label"
-                    classNameInput="input"
+                <Input divClassName="contact-form_field"
                     label="Description: "
                     id="contact-description" 
                     type="text" 
@@ -66,7 +60,7 @@ export default function NewContactPage(){
                     value={contact.description}
                     onChange={(e)=>setContact({...contact, description: e.target.value})}
                 />
-                <button id="button-save" onClick={saveHandler}>Save</button>
+                <button id="button-save" className="contact-form_button" onClick={saveHandler}>Save</button>
             </div>
         </div>
     )

@@ -61,7 +61,7 @@ export function EditContact(props){
                     onChange={(e)=>setDescription(e.target.value)}    
                 ></input>
             </div>
-            <button onClick={handleSave}><IoSaveSharp className="icon-save"/></button>
+            <button onClick={handleSave} className="icon-save"><IoSaveSharp/></button>
         </article>
     )
 }

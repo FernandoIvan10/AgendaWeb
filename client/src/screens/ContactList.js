@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Input } from "../components/basics/Basic";
+import { Input } from "../components/basics/Input";
 import { Contact, EditContact } from "../components/contacts/Contact";
 import { IoMdPersonAdd } from "react-icons/io";
 import { Link } from "react-router-dom";
@@ -88,18 +88,16 @@ export default function ContactListPage(){
             </div>
             <div className="body">
             <div className="div-search">
-            <Input className="input-search"
-                    classNameLabel="input-search-label"
-                    classNameInput="input-search-input"
+            <Input divClassName="contact-search_field"
                     id="search" 
                     type="text"
                     label="Search: " 
                     placeholder="write a contact name" 
                     value={search}
                     onChange={(e) => setSearch(e.target.value)}/>
-                <Link to="/new-contact">
-                    <IoMdPersonAdd className="icon-add-contact"/>
-                </Link>
+            <Link to="/new-contact">
+                <IoMdPersonAdd className="icon-add-contact"/>
+            </Link>
             </div>
             <div>
             {generateList()}

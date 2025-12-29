@@ -22,12 +22,12 @@
     margin-top: 1px;
 }
 
-.input-search{
+.contact-search_field{
     justify-content: flex-start;
 
 }
 
-.input-search-input{
+.contact-search_field input{
     width: 320px;
     height: 50%;
     padding: 1px;
@@ -35,7 +35,7 @@
     font-size: 17px;
 }
 
-.input-search-label {
+.contact-search_field label {
     color: #4682A9; 
     font-size: 20px;
 }
@@ -84,11 +84,21 @@ strong{
 }
 
 .icon-delete{
+    color: white;
+    background-color: #91C8E4;
+    border: none;
+    box-shadow: none;
+    outline: none;
     font-size: 25px;
     margin-left: 40px;
 }
 
 .icon-edit{
+    color: white;
+    background-color: #91C8E4;
+    border: none;
+    box-shadow: none;
+    outline: none;
     font-size: 25px;
     margin-left: 10px;
 }
@@ -99,5 +109,10 @@ strong{
 }
 
 .icon-save{
+    color: white;
+    background-color: #91C8E4;
+    border: none;
+    box-shadow: none;
+    outline: none;
     font-size: 25px;
 }
