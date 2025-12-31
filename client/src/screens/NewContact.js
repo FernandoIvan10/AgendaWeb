@@ -36,7 +36,7 @@ export default function NewContactPage(){
                 </Link>
             </div>
             <div className="contact-form_div">
-                <Input divClassName="contact-form_field"
+                <Input
                     label="Name: " 
                     id="contact-name" 
                     type="text"
@@ -44,7 +44,7 @@ export default function NewContactPage(){
                     value={contact.name}
                     onChange={(e)=>setContact({...contact, name: e.target.value})}
                     />
-                <Input divClassName="contact-form_field"
+                <Input
                     label="Phone: "
                     id="contact-phone" 
                     type="text"
@@ -52,7 +52,7 @@ export default function NewContactPage(){
                     value={contact.phone}
                     onChange={(e)=>setContact({...contact, phone: e.target.value})}
                 />
-                <Input divClassName="contact-form_field"
+                <Input
                     label="Description: "
                     id="contact-description" 
                     type="text" 

@@ -2,9 +2,9 @@ import { IoIosContact } from "react-icons/io";
 import { FaTrashAlt, FaUserEdit } from "react-icons/fa";
 import { IoSaveSharp } from "react-icons/io5";
 import { useState } from "react";
-import '../../assets/styles/screens/ContactCard.css'
+import '../../assets/styles/components/ContactCard.css'
 
-// Component containing a contact card
+// Component that shows a contact card
 export function ContactCard({
     mode,
     className,
