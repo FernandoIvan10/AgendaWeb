@@ -20,6 +20,7 @@ export default function ContactListPage(){
     useEffect(() => {
         let isMounted = true; // Track if component is mounted
         setLoading(true);
+        setError(null);
 
         axios.get('/api/contacts')
             .then((res) => {
@@ -29,7 +30,7 @@ export default function ContactListPage(){
             })
             .catch((err) => {
                 if(!isMounted) return;
-                setError(err);
+                setError(err.message || 'An error occurred while fetching contacts.');
                 setLoading(false);
             });
 
@@ -38,32 +39,34 @@ export default function ContactListPage(){
 
     // Method that deletes a contact
     const deleteContact=(id)=>{
+        setError(null);
         axios.delete(`/api/contacts/${id}`)
         .then(() => {
             setContacts(prev => removeContact(id, prev));
         })
-        .catch(err => setError(err));
-    }
-
-    // Method that change isEditing value in a contact
-    const editContact = (id) => {
-        setContacts(prev => editingContact(id, prev));
+        .catch(err => setError(err.message || 'An error occurred while deleting the contact.'));
     }
     
     // Method that save changes in the contact
     const saveChanges = (id, updatedContact) => {
+        setError(null);
         axios.put(`/api/contacts/${id}`, updatedContact)
             .then(res => {
                 setContacts(prev => updateContact(id, prev, res.data));
                 })
             .catch(err => {
-                setError(err);
+                setError(err.message || 'An error occurred while updating the contact.');
             });
     }
 
     // Method that removes a contact from a list by id
     const removeContact = (id, list) => {
         return list.filter(c => c.id !== id);
+    }
+
+    // Method that change isEditing value in a contact
+    const editContact = (id) => {
+        setContacts(prev => editingContact(id, prev));
     }
 
     // Method that set isEditing to true for a contact by id
@@ -115,7 +118,7 @@ export default function ContactListPage(){
             {loading ? (
                 <p>Loading contacts...</p>
             ) : error ? (
-                <p>Error loading contacts: {error?.message || 'Server error'}</p>
+                <p className="error-message">{error}</p>
             ) : (
                 filteredContacts.map((contact) => {
                     return contact.isEditing ? (
