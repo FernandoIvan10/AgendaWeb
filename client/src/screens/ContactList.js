@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Input } from "../components/basics/Input";
-import { Contact, EditContact } from "../components/contacts/Contact";
+import { ContactCard } from "../components/contacts/ContactCard";
 import { IoMdPersonAdd } from "react-icons/io";
 import { Link } from "react-router-dom";
 import axios from "axios";
@@ -59,21 +59,21 @@ export default function ContactListPage(){
             })
             .map((contact, id) => {
                 return contact.isEditing ? (
-                    <EditContact
-                        className="div-target"
+                    <ContactCard
+                        mode="edit"
                         key={contact.id}
-                        name={contact.name}
-                        phone={contact.phone}
-                        description={contact.description}
+                        initialName={contact.name}
+                        initialPhone={contact.phone}
+                        initialDescription={contact.description}
                         saveChanges={(updatedContact) => saveChanges(contact.id, updatedContact)}
                     />
                 ) : (
-                    <Contact
-                        className="div-target"
+                    <ContactCard
+                        mode="view"
                         key={contact.id}
-                        name={contact.name}
-                        phone={contact.phone}
-                        description={contact.description}
+                        initialName={contact.name}
+                        initialPhone={contact.phone}
+                        initialDescription={contact.description}
                         deleteContact={() => deleteContact(contact.id)}
                         editContact={() => editContact(contact.id)}
                     />

@@ -1,0 +1,62 @@
+.contact-card{
+    margin-bottom: 15px;
+    width: 100%;
+}
+
+.contact-card__card{
+    display: flex;
+    align-items: center;
+    background-color: #91C8E4;
+    font-size: 20px;
+    border-radius: 1%;
+    padding: 1px;
+}
+
+.contact-card__profile-icon{
+    font-size: 80px;
+    color: white;
+    top: 25%;
+    right: 0;
+    margin-right: 10px;
+}
+
+.contact-card__info{
+    display: flex;
+    flex-direction: column;
+}
+
+.contact-card__name{
+    display: flex;
+    align-items: center;
+    color: white;
+    gap: 10px;
+}
+
+.contact-card__delete-button{
+    color: white;
+    background-color: #91C8E4;
+    border: none;
+    box-shadow: none;
+    outline: none;
+    font-size: 25px;
+    margin-left: 40px;
+}
+
+.contact-card__edit-button{
+    color: white;
+    background-color: #91C8E4;
+    border: none;
+    box-shadow: none;
+    outline: none;
+    font-size: 25px;
+    margin-left: 10px;
+}
+
+.contact-card__save-button{
+    color: white;
+    background-color: #91C8E4;
+    border: none;
+    box-shadow: none;
+    outline: none;
+    font-size: 25px;
+}
