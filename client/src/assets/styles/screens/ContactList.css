@@ -1,4 +1,4 @@
-.body{
+.contact-list__body{
     background-color: white;
     width: 48%;
     height: fit-content;
@@ -12,7 +12,7 @@
     overflow-y: auto;
 }
 
-.div-search{
+.contact-list__search-section{
     width: 98%;
     height: fit-content;
     display: flex;
@@ -22,12 +22,17 @@
     margin-top: 1px;
 }
 
-.contact-search_field{
+.contact-list__search-field{
     justify-content: flex-start;
 
 }
 
-.contact-search_field input{
+.contact-list__search-field label{
+    color: #4682A9; 
+    font-size: 20px;
+}
+
+.contact-list__search-field input{
     width: 320px;
     height: 50%;
     padding: 1px;
@@ -35,12 +40,7 @@
     font-size: 17px;
 }
 
-.contact-search_field label {
-    color: #4682A9; 
-    font-size: 20px;
-}
-
-.icon-add-contact{
+.contact-list__add-contact-button{
     font-size: 30px;
     color: #4682A9;
     top: 25%;

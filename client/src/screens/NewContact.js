@@ -28,8 +28,8 @@ export default function NewContactPage(){
     }
 
     return (
-        <div className="div-main">
-            <div className="div-header">
+        <div className="main-container">
+            <div className="header">
                 <h1>Phone Book</h1>
                 <Link to="/contact-list">
                     <RiContactsBook3Fill className="icon-list" />
